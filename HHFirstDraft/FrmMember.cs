@@ -31,8 +31,8 @@ namespace HHFirstDraft
             string keyword = textBox1.Text;
             dto = bll.GetMembers(keyword);
             showMembers();
-
         }
+
         MemberDetailDTO detail = new MemberDetailDTO();
         private void showMembers()
         {
@@ -65,6 +65,12 @@ namespace HHFirstDraft
             detail.Birthdate = DateTime.Parse(dataGridView1.Rows[e.RowIndex].Cells["Birthdate"].Value.ToString());
             detail.JoinDate = DateTime.Parse(dataGridView1.Rows[e.RowIndex].Cells["JoinDate"].Value.ToString());
             detail.Gender = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Gender"].Value);
+            detail.Password = dataGridView1.Rows[e.RowIndex].Cells["Password"].Value.ToString();
+            detail.TaiwanID = dataGridView1.Rows[e.RowIndex].Cells["TaiwanID"].Value.ToString();
+            detail.Height = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Height"].Value);
+            detail.ActivityLevelID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["ActivityLevelID"].Value);
+            detail.ActivityLevel = dataGridView1.Rows[e.RowIndex].Cells["ActivityLevel"].Value.ToString();
+            
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -75,15 +81,17 @@ namespace HHFirstDraft
             }
             else
             {
-                FrmUpdateMember frm = new FrmUpdateMember();
+                FrmAddMember frm = new FrmAddMember();
                 frm.detail = detail;
                 frm.dto = dto;
+                frm.IsUpdate = true;
                 this.Hide();
                 frm.ShowDialog();
                 this.Visible = true;
                 bll = new MemberBLL();
                 dto = bll.GetMembers();
                 showMembers();
+                this.textBox1.Clear();
             }
         }
 
@@ -98,12 +106,13 @@ namespace HHFirstDraft
                 DialogResult result = MessageBox.Show("你確定欲刪除該會員 " + detail.Name + " ?", "警告", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    if (bll.Delete(detail))
+                    if (bll.Delete(detail.ID))
                     {
                         MessageBox.Show("會員已刪除");
                         bll = new MemberBLL();
                         dto = bll.GetMembers();
                         showMembers();
+                        this.textBox1.Clear();
                     }
                 }
             }
@@ -119,6 +128,7 @@ namespace HHFirstDraft
             bll = new MemberBLL();
             dto = bll.GetMembers();
             showMembers();
+            this.textBox1.Clear();
         }
         bool isAscending = true;
         private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -135,6 +145,11 @@ namespace HHFirstDraft
                 isAscending = true;
                 dataGridView1.DataSource = list.OrderByDescending(x => x.GetType().GetProperty(columnName).GetValue(x)).ToList();
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

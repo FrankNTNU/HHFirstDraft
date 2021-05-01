@@ -34,20 +34,23 @@ namespace HHFirstDraft.BLL
         public void Update(MemberDetailDTO entity)
         {
             Member member = new Member();
-            member.Name = entity.Name;
             member.ID = entity.ID;
+            member.Name = entity.Name;
             member.Phone = entity.Phone;
             member.Email = entity.Email;
-            member.Gender = entity.Gender;
             member.StatusID = entity.StatusID;
+            member.Birthdate = entity.Birthdate;
+            member.IsAdmin = entity.IsAdmin;
+            member.Password = entity.Password;
+            member.Height = entity.Height;
+            member.Gender = entity.Gender;
+            member.ActivityLevelID = entity.ActivityLevelID;
             dao.Update(member);
         }
 
-        public bool Delete(MemberDetailDTO entity)
+        public bool Delete(int ID)
         {
-            Member member = new Member();
-            member.ID = entity.ID;
-            dao.Delete(member);
+            dao.Delete(ID);
             return true;
 
         }
@@ -71,6 +74,21 @@ namespace HHFirstDraft.BLL
             member.ActivityLevelID = entity.ActivityLevelID;
            
             return dao.Add(member);
+        }
+
+        public bool IsPwdExist(string text)
+        {
+            return dao.IsPwdExist(text);
+        }
+
+        public bool IsEmailExist(string text)
+        {
+            return dao.IsEmailExist(text);
+        }
+
+        public bool IsTaiwanIDExist(string text)
+        {
+            return dao.IsTaiwanIDExist(text);
         }
     }
 }

@@ -18,12 +18,15 @@ namespace HHFirstDraft.DAL.DAO
                 MemberDetailDTO dto = new MemberDetailDTO();
                 dto.ID = item.ID;
                 dto.Name = item.Name;
+                dto.Password = item.Password;
+                dto.Height = (int)item.Height;
                 dto.Email = item.Email;
                 dto.Phone = item.Phone;
                 dto.StatusID = item.StatusID;
                 dto.Status = item.Status.Name;
                 dto.IsAdmin = item.IsAdmin;
                 dto.TaiwanID = item.TaiwanID;
+                dto.ActivityLevelID = item.ActivityLevelID;
                 dto.ActivityLevel = item.ActivityLevel.Description;
                 dto.Birthdate = item.Birthdate;
                 dto.JoinDate = item.JoinDate;
@@ -50,8 +53,13 @@ namespace HHFirstDraft.DAL.DAO
                 member.Name = entity.Name;
                 member.Phone = entity.Phone;
                 member.Email = entity.Email;
-                member.Gender = entity.Gender;
                 member.StatusID = entity.StatusID;
+                member.Birthdate = entity.Birthdate;
+                member.IsAdmin = entity.IsAdmin;
+                member.Password = entity.Password;
+                member.Height = entity.Height;
+                member.Gender = entity.Gender;
+                member.ActivityLevelID = entity.ActivityLevelID;
                 db.SaveChanges();
             }
             catch (Exception ex)
@@ -61,11 +69,11 @@ namespace HHFirstDraft.DAL.DAO
             }
         }
 
-        public void Delete(Member entity)
+        public void Delete(int ID)
         {
             try
             {
-                Member member = db.Members.First(x => x.ID == entity.ID);
+                Member member = db.Members.First(x => x.ID == ID);
                 db.Members.Remove(member);
                 db.SaveChanges();
             }
@@ -91,6 +99,45 @@ namespace HHFirstDraft.DAL.DAO
             }
         }
 
+        public bool IsPwdExist(string text)
+        {
+            Member member = db.Members.FirstOrDefault(x => x.Password == text);
+            if (member == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsTaiwanIDExist(string text)
+        {
+            Member member = db.Members.FirstOrDefault(x => x.TaiwanID == text);
+            if (member == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsEmailExist(string text)
+        {
+            Member member = db.Members.FirstOrDefault(x => x.Email == text);
+            if (member == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public List<MemberDetailDTO> GetMembers(string keyword)
         {
             List<MemberDetailDTO> Members = new List<MemberDetailDTO>();
@@ -103,15 +150,19 @@ namespace HHFirstDraft.DAL.DAO
                 MemberDetailDTO dto = new MemberDetailDTO();
                 dto.ID = item.ID;
                 dto.Name = item.Name;
+                dto.Password = item.Password;
+                dto.Height = (int)item.Height;
                 dto.Email = item.Email;
                 dto.Phone = item.Phone;
                 dto.StatusID = item.StatusID;
                 dto.Status = item.Status.Name;
-                dto.Birthdate = item.Birthdate;
-                dto.JoinDate = item.JoinDate;
                 dto.IsAdmin = item.IsAdmin;
                 dto.TaiwanID = item.TaiwanID;
                 dto.ActivityLevel = item.ActivityLevel.Description;
+                dto.Birthdate = item.Birthdate;
+                dto.JoinDate = item.JoinDate;
+                dto.ActivityLevelID = item.ActivityLevelID;
+
                 if (item.Gender)
                 {
                     dto.Gender = true;
