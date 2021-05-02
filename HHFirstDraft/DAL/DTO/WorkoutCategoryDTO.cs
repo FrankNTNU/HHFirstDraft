@@ -9,6 +9,7 @@ namespace HHFirstDraft.DAL.DTO
     public class WorkoutCategoryDTO
     {
         public List<WorkoutCategoryDetailDTO> Categories { get; set; }
+        public List<WorkoutDetailDTO> Workouts { get; set; }
 
     }
 }

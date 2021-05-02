@@ -58,5 +58,10 @@ namespace HHFirstDraft.BLL
         {
             return dao.Delete(ID);
         }
+
+        public bool IsWorkoutExist(string name)
+        {
+            return dao.IsWorkoutExist(name);
+        }
     }
 }

@@ -32,5 +32,13 @@ namespace HHFirstDraft
             frm.ShowDialog();
             this.Visible = true;
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FrmMeal frm = new FrmMeal();
+            this.Hide();
+            frm.ShowDialog();
+            this.Visible = true;
+        }
     }
 }

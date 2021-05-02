@@ -77,10 +77,19 @@ namespace HHFirstDraft
             }
             else
             {
-                if (bll.Add(detail))
+                if (bll.IsWorkoutExist(detail.Name))
                 {
-                    MessageBox.Show("已加入新運動項目");
-                    this.Close();
+                    MessageBox.Show("該運動名稱已存在");
+
+                }
+                else 
+                {
+                    if (bll.Add(detail))
+                    {
+                        MessageBox.Show("已加入新運動項目");
+                        this.Close();
+                    }
+                    
                 }
             }
            

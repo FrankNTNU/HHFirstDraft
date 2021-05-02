@@ -62,6 +62,42 @@ namespace HHFirstDraft.DAL.DAO
             return workoutDTOList;
         }
 
+        public List<WorkoutDetailDTO> GetWorkouts(int ID)
+        {
+            List<Workout> list = db.Workouts.Where(x => x.WorkoutCategoryID == ID).ToList();
+            List<WorkoutDetailDTO> dtoList = new List<WorkoutDetailDTO>();
+            foreach (Workout item in list)
+            {
+                WorkoutDetailDTO dto = new WorkoutDetailDTO();
+                dto.ID = item.ID;
+                dto.Name = item.Name;
+                dto.Calories = item.Calories;
+                dtoList.Add(dto);
+            }
+            return dtoList;
+        }
+
+        public bool IsWorkoutExist(string name)
+        {
+            try
+            {
+                Workout workout = db.Workouts.FirstOrDefault(x => x.Name == name);
+                if (workout != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public bool Delete(int ID)
         {
             try

@@ -23,18 +23,18 @@ namespace HHFirstDraft
         private void Form1_Load(object sender, EventArgs e)
         {
             dto = bll.GetMembers();
-            showMembers();
+            ShowMembers();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             string keyword = textBox1.Text;
             dto = bll.GetMembers(keyword);
-            showMembers();
+            ShowMembers();
         }
 
         MemberDetailDTO detail = new MemberDetailDTO();
-        private void showMembers()
+        private void ShowMembers()
         {
             dataGridView1.DataSource = dto.Members;
             dataGridView1.Columns["ID"].HeaderText = "編號";
@@ -90,7 +90,7 @@ namespace HHFirstDraft
                 this.Visible = true;
                 bll = new MemberBLL();
                 dto = bll.GetMembers();
-                showMembers();
+                ShowMembers();
                 this.textBox1.Clear();
             }
         }
@@ -111,7 +111,7 @@ namespace HHFirstDraft
                         MessageBox.Show("會員已刪除");
                         bll = new MemberBLL();
                         dto = bll.GetMembers();
-                        showMembers();
+                        ShowMembers();
                         this.textBox1.Clear();
                     }
                 }
@@ -127,7 +127,7 @@ namespace HHFirstDraft
             this.Visible = true;
             bll = new MemberBLL();
             dto = bll.GetMembers();
-            showMembers();
+            ShowMembers();
             this.textBox1.Clear();
         }
         bool isAscending = true;

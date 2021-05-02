@@ -18,11 +18,11 @@ namespace HHFirstDraft.BLL
             workoutCategory.Name = entity.Name;
             return dao.Add(workoutCategory);
         }
-        public WorkoutCategoryDTO GetCategories()
+        public List<WorkoutCategoryDetailDTO> GetCategories()
         {
-            WorkoutCategoryDTO dto = new WorkoutCategoryDTO();
-            dto.Categories = dao.GetCategories();
-            return dto;
+            List<WorkoutCategoryDetailDTO> dtoList = new List<WorkoutCategoryDetailDTO>();
+            dtoList = dao.GetCategories();
+            return dtoList;
 
         }
 
@@ -44,9 +44,16 @@ namespace HHFirstDraft.BLL
             return dao.HasWorkouts(ID);
         }
 
-        public void Delete(int ID)
+        public bool Delete(int ID)
         {
-            dao.Delete(ID);
+            return dao.Delete(ID);
+        }
+        WorkoutDAO workoutDAO = new WorkoutDAO();
+        public List<WorkoutDetailDTO> GetWorkouts(int ID)
+        {
+            List<WorkoutDetailDTO> dtoList = new List<WorkoutDetailDTO>();
+            dtoList = workoutDAO.GetWorkouts(ID);
+            return dtoList;
         }
     }
 }

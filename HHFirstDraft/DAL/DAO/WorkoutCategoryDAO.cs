@@ -53,11 +53,12 @@ namespace HHFirstDraft.DAL.DAO
             }
         }
 
-        public void Delete(int ID)
+        public bool Delete(int ID)
         {
             WorkoutCategory category = db.WorkoutCategories.First(x => x.ID == ID);
             db.WorkoutCategories.Remove(category);
             db.SaveChanges();
+            return true;
         }
 
         public bool HasWorkouts(int ID)
@@ -71,20 +72,6 @@ namespace HHFirstDraft.DAL.DAO
             {
                 return false;
             }
-        }
-
-        internal List<WorkoutCategoryDetailDTO> GetCategories(string text)
-        {
-            List<WorkoutCategory> categories = db.WorkoutCategories.Where(x => x.Name.Contains(text)) .ToList();
-            List<WorkoutCategoryDetailDTO> dtoList = new List<WorkoutCategoryDetailDTO>();
-            foreach (var item in categories)
-            {
-                WorkoutCategoryDetailDTO dto = new WorkoutCategoryDetailDTO();
-                dto.ID = item.ID;
-                dto.Name = item.Name;
-                dtoList.Add(dto);
-            }
-            return dtoList;
         }
 
         public bool IsCategoryExist(string text)

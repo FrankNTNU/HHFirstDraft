@@ -55,7 +55,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\TagCategoryBLL.cs" />
+    <Compile Include="DAL\DAO\TagCategoryDAO.cs" />
+    <Compile Include="DAL\DTO\TagCategoryDetailDTO.cs" />
+    <Compile Include="DAL\DTO\TagCategoryDTO.cs" />
+    <Compile Include="FrmAddMeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddMeal.Designer.cs">
+      <DependentUpon>FrmAddMeal.cs</DependentUpon>
+    </Compile>
     <Compile Include="BLL\ActivityLevelBLL.cs" />
+    <Compile Include="BLL\MealBLL.cs" />
     <Compile Include="BLL\MemberBLL.cs" />
     <Compile Include="BLL\StatusBLL.cs" />
     <Compile Include="BLL\WorkoutBLL.cs" />
@@ -65,6 +76,7 @@
     </Compile>
     <Compile Include="DAL\DAO\ActivityLevelDAO.cs" />
     <Compile Include="DAL\DAO\HHContext.cs" />
+    <Compile Include="DAL\DAO\MealDAO.cs" />
     <Compile Include="DAL\DAO\MemberDAO.cs" />
     <Compile Include="DAL\DAO\StatusDAO.cs" />
     <Compile Include="DAL\DAO\WorkoutCategoryDAO.cs" />
@@ -77,6 +89,8 @@
     </Compile>
     <Compile Include="DAL\DTO\ActivityLevelDetailDTO.cs" />
     <Compile Include="DAL\DTO\ActivityLevelDTO.cs" />
+    <Compile Include="DAL\DTO\MealDetailDTO.cs" />
+    <Compile Include="DAL\DTO\MealDTO.cs" />
     <Compile Include="DAL\DTO\MemberDetailDTO.cs" />
     <Compile Include="DAL\DTO\MemberDTO.cs" />
     <Compile Include="DAL\DTO\StatusDetailDTO.cs" />
@@ -160,11 +174,23 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMeal.Designer.cs">
+      <DependentUpon>FrmMeal.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMember.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMember.Designer.cs">
       <DependentUpon>FrmMember.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTag.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTag.Designer.cs">
+      <DependentUpon>FrmTag.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmWorkout.cs">
       <SubType>Form</SubType>
@@ -175,6 +201,9 @@
     <Compile Include="General.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAddMeal.resx">
+      <DependentUpon>FrmAddMeal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAddMember.resx">
       <DependentUpon>FrmAddMember.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,8 +216,14 @@
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmMeal.resx">
+      <DependentUpon>FrmMeal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMember.resx">
       <DependentUpon>FrmMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTag.resx">
+      <DependentUpon>FrmTag.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmWorkout.resx">
       <DependentUpon>FrmWorkout.cs</DependentUpon>

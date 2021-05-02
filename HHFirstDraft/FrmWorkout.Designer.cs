@@ -111,7 +111,7 @@
             this.btnClose.Location = new System.Drawing.Point(1245, 89);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(110, 42);
-            this.btnClose.TabIndex = 8;
+            this.btnClose.TabIndex = 5;
             this.btnClose.Text = "返回";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -123,7 +123,7 @@
             this.btnAddCat.Location = new System.Drawing.Point(651, 148);
             this.btnAddCat.Name = "btnAddCat";
             this.btnAddCat.Size = new System.Drawing.Size(158, 42);
-            this.btnAddCat.TabIndex = 6;
+            this.btnAddCat.TabIndex = 2;
             this.btnAddCat.Text = "新增類別";
             this.btnAddCat.UseVisualStyleBackColor = true;
             this.btnAddCat.Click += new System.EventHandler(this.btnAddCat_Click);
@@ -180,7 +180,7 @@
             this.btnDelete.Location = new System.Drawing.Point(993, 148);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(110, 42);
-            this.btnDelete.TabIndex = 3;
+            this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "刪除";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -192,7 +192,7 @@
             this.btnEdit.Location = new System.Drawing.Point(848, 148);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(110, 42);
-            this.btnEdit.TabIndex = 2;
+            this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "修改";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);

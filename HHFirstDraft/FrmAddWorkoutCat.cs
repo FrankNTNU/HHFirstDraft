@@ -24,8 +24,11 @@ namespace HHFirstDraft
         private void FrmAddWorkoutCat_Load(object sender, EventArgs e)
         {
 
-            dto = bll.GetCategories();
+            dto.Categories = bll.GetCategories();
             dataGridView1.DataSource = dto.Categories;
+            dataGridView1.Columns["ID"].HeaderText = "分類編號";
+            dataGridView1.Columns["Name"].HeaderText = "分類名稱";
+            
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -50,7 +53,7 @@ namespace HHFirstDraft
                 if (bll.Add(detail))
                 {
                     MessageBox.Show("已新增運動類別");
-                    dto = bll.GetCategories();
+                    dto.Categories = bll.GetCategories();
                     dataGridView1.DataSource = dto.Categories;
                     txtName.Clear();
                 }
@@ -62,6 +65,16 @@ namespace HHFirstDraft
             selectedDetail.ID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["ID"].Value);
             selectedDetail.Name = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();
             txtName.Text = selectedDetail.Name;
+            dto.Workouts = bll.GetWorkouts(selectedDetail.ID);
+            dataGridView2.DataSource = dto.Workouts;
+            dataGridView2.Columns["ID"].HeaderText = "運動編號";
+            dataGridView2.Columns["Name"].HeaderText = "運動名稱";
+            dataGridView2.Columns["ActivityLevel"].Visible = false;
+            dataGridView2.Columns["ActivityLevelID"].Visible = false;
+            dataGridView2.Columns["CategoryName"].Visible = false;
+            dataGridView2.Columns["CategoryID"].Visible = false;
+
+
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -79,7 +92,7 @@ namespace HHFirstDraft
                 selectedDetail.Name = txtName.Text;
                 bll.Update(selectedDetail);
                 MessageBox.Show("已修改類別名稱");
-                dto = bll.GetCategories();
+                dto.Categories = bll.GetCategories();
                 dataGridView1.DataSource = dto.Categories;
             }
         }
@@ -95,10 +108,14 @@ namespace HHFirstDraft
                 }
                 else
                 {
-                    bll.Delete(selectedDetail.ID);
-                    MessageBox.Show("已刪除類別");
-                    dto = bll.GetCategories();
-                    dataGridView1.DataSource = dto.Categories;
+                    if(bll.Delete(selectedDetail.ID))
+                    {
+                        MessageBox.Show("已刪除類別");
+                        dto.Categories = bll.GetCategories();
+                        dataGridView1.DataSource = dto.Categories;
+
+                    }
+                    
                 }
             }
         }

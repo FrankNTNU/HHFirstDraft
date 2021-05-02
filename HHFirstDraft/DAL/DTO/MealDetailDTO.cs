@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace HHFirstDraft.DAL.DTO
 {
-    public class WorkoutDetailDTO
+    public class MealDetailDTO
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int? CategoryID { get; set; }
-        public string CategoryName { get; set; }
         public int Calories { get; set; }
-        public int ActivityLevelID { get; set; }
-        public string ActivityLevel { get; set; }
+        public List<TagCategoryDetailDTO> Tags { get; set; }
     }
 }

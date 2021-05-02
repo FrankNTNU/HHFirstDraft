@@ -29,10 +29,10 @@ namespace HHFirstDraft
         private void FrmWorkout_Load(object sender, EventArgs e)
         {
             dto = bll.GetWorkouts();
-            showWorkouts();
+            ShowWorkouts();
         }
 
-        private void showWorkouts()
+        private void ShowWorkouts()
         {
             dataGridView1.DataSource = dto.Workouts;
             dataGridView1.Columns["ID"].HeaderText = "編號";
@@ -52,7 +52,7 @@ namespace HHFirstDraft
             this.Visible = true;
             bll = new WorkoutBLL();
             dto = bll.GetWorkouts();
-            showWorkouts();
+            ShowWorkouts();
         }
 
         private void btnAddWorkout_Click(object sender, EventArgs e)
@@ -64,13 +64,13 @@ namespace HHFirstDraft
             this.Visible = true;
             bll = new WorkoutBLL();
             dto = bll.GetWorkouts();
-            showWorkouts();
+            ShowWorkouts();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             dto = bll.GetWorkouts(textBox1.Text);
-            showWorkouts();
+            ShowWorkouts();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace HHFirstDraft
             this.Visible = true;
             bll = new WorkoutBLL();
             dto = bll.GetWorkouts();
-            showWorkouts();
+            ShowWorkouts();
         }
         WorkoutDetailDTO detail = new WorkoutDetailDTO();
 
@@ -107,7 +107,7 @@ namespace HHFirstDraft
                     MessageBox.Show("已刪除該運動項目");
                     bll = new WorkoutBLL();
                     dto = bll.GetWorkouts();
-                    showWorkouts();
+                    ShowWorkouts();
                     this.textBox1.Clear();
                 }
             }
