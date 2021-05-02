@@ -28,12 +28,15 @@ namespace HHFirstDraft
 
         private void FrmWorkout_Load(object sender, EventArgs e)
         {
-            dto = bll.GetWorkouts();
+            
             ShowWorkouts();
         }
-
-        private void ShowWorkouts()
+        bool isSearch = false;
+        public void ShowWorkouts()
         {
+            bll = new WorkoutBLL();
+            if (isSearch) dto = bll.GetWorkouts(keyword);
+            else dto = bll.GetWorkouts();
             dataGridView1.DataSource = dto.Workouts;
             dataGridView1.Columns["ID"].HeaderText = "編號";
             dataGridView1.Columns["Name"].HeaderText = "名稱";
@@ -42,49 +45,42 @@ namespace HHFirstDraft
             dataGridView1.Columns["CategoryName"].HeaderText = "類別";
             dataGridView1.Columns["CategoryID"].Visible = false;
             dataGridView1.Columns["ActivityLevelID"].Visible = false;
+            isSearch = false;
         }
 
-        private void btnAddCat_Click(object sender, EventArgs e)
-        {
-            FrmAddWorkoutCat frm = new FrmAddWorkoutCat();
-            this.Hide();
-            frm.ShowDialog();
-            this.Visible = true;
-            bll = new WorkoutBLL();
-            dto = bll.GetWorkouts();
-            ShowWorkouts();
-        }
+       
 
         private void btnAddWorkout_Click(object sender, EventArgs e)
         {
-            FrmAddWorkout frm = new FrmAddWorkout();
+            FrmAddWorkout frm = new FrmAddWorkout(this);
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
             frm.dto = dto;
-            this.Hide();
-            frm.ShowDialog();
-            this.Visible = true;
-            bll = new WorkoutBLL();
-            dto = bll.GetWorkouts();
-            ShowWorkouts();
+            frm.detail = detail;
+            frm.IsUpdate = false;
+            frm.Show();
         }
-
+        string keyword;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            dto = bll.GetWorkouts(textBox1.Text);
+            keyword = textBox1.Text;
+            isSearch = true;
             ShowWorkouts();
         }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            FrmAddWorkout frm = new FrmAddWorkout();
+           
+            FrmAddWorkout frm = new FrmAddWorkout(this);
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
             frm.detail = detail;
             frm.dto = dto;
             frm.IsUpdate = true;
-            this.Hide();
-            frm.ShowDialog();
-            this.Visible = true;
-            bll = new WorkoutBLL();
-            dto = bll.GetWorkouts();
-            ShowWorkouts();
+            frm.Show();
         }
         WorkoutDetailDTO detail = new WorkoutDetailDTO();
 
@@ -105,8 +101,6 @@ namespace HHFirstDraft
                 if (bll.Delete(detail.ID))
                 {
                     MessageBox.Show("已刪除該運動項目");
-                    bll = new WorkoutBLL();
-                    dto = bll.GetWorkouts();
                     ShowWorkouts();
                     this.textBox1.Clear();
                 }

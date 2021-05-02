@@ -22,19 +22,21 @@ namespace HHFirstDraft
         MealBLL bll = new MealBLL();
         private void FrmMeal_Load(object sender, EventArgs e)
         {
-            dto = bll.GetMeals();
             ShowMeals();
         }
 
-        private void ShowMeals()
+        public void ShowMeals()
         {
+            bll = new MealBLL();
+            if(isSearch) dto = bll.GetMeals(keyword);
+            else dto = bll.GetMeals();
             dataGridView1.DataSource = dto.Meals;
             dataGridView1.Columns["ID"].HeaderText = "餐點編號";
             dataGridView1.Columns["Name"].HeaderText = "餐點名稱";
             dataGridView1.Columns["Calories"].HeaderText = "卡路里";
-
             dataGridView2.Columns["ID"].HeaderText = "標籤編號";
             dataGridView2.Columns["Name"].HeaderText = "標籤名稱";
+            isSearch = false;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -44,19 +46,20 @@ namespace HHFirstDraft
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FrmAddMeal frm = new FrmAddMeal();
-            this.Hide();
-            frm.ShowDialog();
-            this.Visible = true;
-            bll = new MealBLL();
-            dto = bll.GetMeals();
-            ShowMeals();
+            FrmAddMeal frm = new FrmAddMeal(this);
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.IsUpdate = false;
+            frm.Show();
         }
-
+        bool isSearch = false;
+        string keyword;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            bll = new MealBLL();
-            dto = bll.GetMeals(textBox1.Text);
+            keyword = textBox1.Text;
+            isSearch = true;
             ShowMeals();
         }
         bool isAscending = true;
@@ -78,17 +81,14 @@ namespace HHFirstDraft
         MealDetailDTO detail = new MealDetailDTO();
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            
-            FrmAddMeal frm = new FrmAddMeal();
+            FrmAddMeal frm = new FrmAddMeal(this);
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
             frm.detail = detail;
             frm.IsUpdate = true;
-            this.Hide();
-            frm.ShowDialog();
-            bll = new MealBLL();
-            dto = bll.GetMeals();
-            ShowMeals();
-            this.Visible = true;
-            
+            frm.Show();
         }
         List<TagCategoryDetailDTO> categories = new List<TagCategoryDetailDTO>();
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)

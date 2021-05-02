@@ -14,8 +14,10 @@ namespace HHFirstDraft
 {
     public partial class FrmAddWorkout : Form
     {
-        public FrmAddWorkout()
+        private FrmWorkout workoutForm;
+        public FrmAddWorkout(FrmWorkout _workoutForm)
         {
+            workoutForm = _workoutForm;
             InitializeComponent();
         }
         public WorkoutDTO dto = new WorkoutDTO();
@@ -35,6 +37,7 @@ namespace HHFirstDraft
                 txtCalories.Text = detail.Calories.ToString();
                 lbTitle.Text = "修改運動項目";
                 btnAdd.Text = "修改";
+                btnAdd.BackColor = Color.LightSkyBlue;
             }
         }
 
@@ -98,6 +101,11 @@ namespace HHFirstDraft
         private void txtCalories_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = General.isNumber(e);
+        }
+
+        private void FrmAddWorkout_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            workoutForm.ShowWorkouts();
         }
     }
 }

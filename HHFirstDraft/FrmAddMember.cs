@@ -17,19 +17,21 @@ namespace HHFirstDraft
     public partial class FrmAddMember : Form
     {
         bool emailFlag, pwdFlag, nameFlag, idFlag = false;
-        public FrmAddMember()
+        private FrmMember memberForm;
+        public FrmAddMember(FrmMember _memberForm)
         {
+            memberForm = _memberForm;
             InitializeComponent();
         }
         public bool IsUpdate = false;
         public MemberDetailDTO detail = new MemberDetailDTO();
         public MemberDTO dto = new MemberDTO();
         MemberBLL bll = new MemberBLL();
+
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void FrmAddMember_Load(object sender, EventArgs e)
         {
             LoadcomboBox();
@@ -37,6 +39,7 @@ namespace HHFirstDraft
             if (IsUpdate)
             {
                 btnAdd.Text = "修改";
+                btnAdd.BackColor = Color.LightSkyBlue;
                 lbTitle.Text = "修改會員資料頁面";
                 txtName.Text = detail.Name;
                 txtEmail.Text = detail.Email;
@@ -44,6 +47,7 @@ namespace HHFirstDraft
                 dpBirth.Value = detail.Birthdate;
                 rbMale.Checked = detail.Gender;
                 rbFemale.Checked = !detail.Gender;
+                cbIsAdmin.Checked = detail.IsAdmin;
                 cmbStatus.SelectedValue = detail.StatusID;
                 txtHeight.Text = detail.Height.ToString();
                 txtTaiwanID.Text = detail.TaiwanID;
@@ -96,7 +100,6 @@ namespace HHFirstDraft
             }
             else
             {
-                
                 detail.Name = txtName.Text;
                 detail.Email = txtEmail.Text;
                 detail.Phone = txtPhone.Text;
@@ -156,6 +159,11 @@ namespace HHFirstDraft
         private void txtPhone_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = General.isNumber(e);
+        }
+
+        private void FrmAddMember_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            memberForm.ShowMembers();
         }
 
         private void txtTaiwanID_Leave(object sender, EventArgs e)

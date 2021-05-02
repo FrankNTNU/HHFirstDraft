@@ -22,20 +22,23 @@ namespace HHFirstDraft
         MemberBLL bll = new MemberBLL();
         private void Form1_Load(object sender, EventArgs e)
         {
-            dto = bll.GetMembers();
             ShowMembers();
         }
-
+        bool isSearch = false;
+        string keyword;
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            string keyword = textBox1.Text;
-            dto = bll.GetMembers(keyword);
+            keyword = textBox1.Text;
+            isSearch = true;
             ShowMembers();
         }
 
         MemberDetailDTO detail = new MemberDetailDTO();
-        private void ShowMembers()
+        public void ShowMembers()
         {
+            bll = new MemberBLL();
+            if(!isSearch) dto = bll.GetMembers();
+            else dto = bll.GetMembers(keyword);
             dataGridView1.DataSource = dto.Members;
             dataGridView1.Columns["ID"].HeaderText = "編號";
             dataGridView1.Columns["Name"].HeaderText = "姓名";
@@ -52,7 +55,7 @@ namespace HHFirstDraft
             dataGridView1.Columns["ActivityLevelID"].Visible = false;
             dataGridView1.Columns["ActivityLevel"].HeaderText = "活動量";
             dataGridView1.Columns["Height"].Visible = false;
-
+            isSearch = false;
         }
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -70,9 +73,9 @@ namespace HHFirstDraft
             detail.Height = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Height"].Value);
             detail.ActivityLevelID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["ActivityLevelID"].Value);
             detail.ActivityLevel = dataGridView1.Rows[e.RowIndex].Cells["ActivityLevel"].Value.ToString();
+            detail.IsAdmin = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["IsAdmin"].Value);
             
         }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (detail.ID == 0)
@@ -81,17 +84,15 @@ namespace HHFirstDraft
             }
             else
             {
-                FrmAddMember frm = new FrmAddMember();
+                FrmAddMember frm = new FrmAddMember(this);
+                frm.TopLevel = false;
+                frm.AutoScroll = true;
+                this.Controls.Add(frm);
+                frm.FormBorderStyle = FormBorderStyle.None;
                 frm.detail = detail;
                 frm.dto = dto;
                 frm.IsUpdate = true;
-                this.Hide();
-                frm.ShowDialog();
-                this.Visible = true;
-                bll = new MemberBLL();
-                dto = bll.GetMembers();
-                ShowMembers();
-                this.textBox1.Clear();
+                frm.Show();
             }
         }
 
@@ -109,8 +110,6 @@ namespace HHFirstDraft
                     if (bll.Delete(detail.ID))
                     {
                         MessageBox.Show("會員已刪除");
-                        bll = new MemberBLL();
-                        dto = bll.GetMembers();
                         ShowMembers();
                         this.textBox1.Clear();
                     }
@@ -120,15 +119,15 @@ namespace HHFirstDraft
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            FrmAddMember frm = new FrmAddMember();
-            this.Hide();
+            FrmAddMember frm = new FrmAddMember(this);
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
             frm.dto = dto;
-            frm.ShowDialog();
-            this.Visible = true;
-            bll = new MemberBLL();
-            dto = bll.GetMembers();
-            ShowMembers();
-            this.textBox1.Clear();
+            frm.IsUpdate = false;
+            frm.Show();
+            this.textBox1.Clear();        
         }
         bool isAscending = true;
         private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -151,5 +150,6 @@ namespace HHFirstDraft
         {
             this.Close();
         }
+
     }
 }

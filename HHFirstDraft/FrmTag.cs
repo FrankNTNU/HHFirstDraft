@@ -80,7 +80,10 @@ namespace HHFirstDraft
             {
                 MessageBox.Show("請輸入欲新增標籤名稱");
             }
-           
+            else if (textBox1.Text == detail.Name)
+            {
+                MessageBox.Show("若欲修改，請輸入一個新的名稱");
+            }
             else
             {
                 detail.Name = textBox1.Text;
