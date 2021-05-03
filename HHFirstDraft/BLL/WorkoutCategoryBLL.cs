@@ -23,7 +23,12 @@ namespace HHFirstDraft.BLL
             List<WorkoutCategoryDetailDTO> dtoList = new List<WorkoutCategoryDetailDTO>();
             dtoList = dao.GetCategories();
             return dtoList;
-
+        }
+        public List<WorkoutCategoryDetailDTO> GetCategories(string text)
+        {
+            List<WorkoutCategoryDetailDTO> dtoList = new List<WorkoutCategoryDetailDTO>();
+            dtoList = dao.GetCategories(text);
+            return dtoList;
         }
 
         public void Update(WorkoutCategoryDetailDTO entity)

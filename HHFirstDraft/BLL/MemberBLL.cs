@@ -13,6 +13,7 @@ namespace HHFirstDraft.BLL
     {
         MemberDAO dao = new MemberDAO();
         StatusDAO statusDAO = new StatusDAO();
+        
         ActivityLevelDAO activityLevelDAO = new ActivityLevelDAO();
         public MemberDTO GetMembers()
         {
@@ -52,7 +53,6 @@ namespace HHFirstDraft.BLL
         {
             dao.Delete(ID);
             return true;
-
         }
 
         public bool Add(MemberDetailDTO entity)
@@ -72,7 +72,6 @@ namespace HHFirstDraft.BLL
             member.TaiwanID = entity.TaiwanID;
             member.StatusID = entity.StatusID;
             member.ActivityLevelID = entity.ActivityLevelID;
-           
             return dao.Add(member);
         }
 

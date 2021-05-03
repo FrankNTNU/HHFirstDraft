@@ -12,7 +12,7 @@ namespace HHFirstDraft.DAL.DTO
         public string Name { get; set; }
         public int? CategoryID { get; set; }
         public string CategoryName { get; set; }
-        public int Calories { get; set; }
+        public double Calories { get; set; }
         public int ActivityLevelID { get; set; }
         public string ActivityLevel { get; set; }
     }

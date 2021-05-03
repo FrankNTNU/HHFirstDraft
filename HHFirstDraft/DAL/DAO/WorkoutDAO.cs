@@ -21,7 +21,7 @@ namespace HHFirstDraft.DAL.DAO
                 dto.Calories = item.Calories;
                 dto.CategoryID = item.WorkoutCategoryID;
                 dto.CategoryName = item.WorkoutCategory.Name;
-                dto.ActivityLevelID = item.ActiyivtyLevelID;
+                dto.ActivityLevelID = item.ActivityLevelID;
                 dto.ActivityLevel = item.ActivityLevel.Description;
                 workoutDTOList.Add(dto);
             }
@@ -55,7 +55,7 @@ namespace HHFirstDraft.DAL.DAO
                 dto.Calories = item.Calories;
                 dto.CategoryID = item.WorkoutCategoryID;
                 dto.CategoryName = item.WorkoutCategory.Name;
-                dto.ActivityLevelID = item.ActiyivtyLevelID;
+                dto.ActivityLevelID = item.ActivityLevelID;
                 dto.ActivityLevel = item.ActivityLevel.Description;
                 workoutDTOList.Add(dto);
             }
@@ -119,7 +119,7 @@ namespace HHFirstDraft.DAL.DAO
             Workout workout = db.Workouts.FirstOrDefault(x => x.ID == entity.ID);
             workout.Name = entity.Name;
             workout.Calories = entity.Calories;
-            workout.ActiyivtyLevelID = entity.ActiyivtyLevelID;
+            workout.ActivityLevelID = entity.ActivityLevelID;
             workout.WorkoutCategoryID = entity.WorkoutCategoryID;
             db.SaveChanges();
         }

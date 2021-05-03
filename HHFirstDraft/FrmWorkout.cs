@@ -28,7 +28,6 @@ namespace HHFirstDraft
 
         private void FrmWorkout_Load(object sender, EventArgs e)
         {
-            
             ShowWorkouts();
         }
         bool isSearch = false;

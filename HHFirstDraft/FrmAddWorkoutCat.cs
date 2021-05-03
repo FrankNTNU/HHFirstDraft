@@ -18,17 +18,25 @@ namespace HHFirstDraft
         {
             InitializeComponent();
         }
+        string keyword;
+        bool isSearch = false;
         WorkoutCategoryBLL bll = new WorkoutCategoryBLL();
 
         WorkoutCategoryDTO dto = new WorkoutCategoryDTO();
         private void FrmAddWorkoutCat_Load(object sender, EventArgs e)
         {
-
-            dto.Categories = bll.GetCategories();
+            ShowWorkoutCat();
+            
+        }
+        private void ShowWorkoutCat()
+        {
+            bll = new WorkoutCategoryBLL();
+            if (!isSearch) dto.Categories = bll.GetCategories();
+            else dto.Categories = bll.GetCategories(keyword);
             dataGridView1.DataSource = dto.Categories;
             dataGridView1.Columns["ID"].HeaderText = "分類編號";
             dataGridView1.Columns["Name"].HeaderText = "分類名稱";
-            
+            isSearch = false;
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -52,9 +60,9 @@ namespace HHFirstDraft
                 detail.Name = txtName.Text;
                 if (bll.Add(detail))
                 {
-                    MessageBox.Show("已新增運動類別");
-                    dto.Categories = bll.GetCategories();
-                    dataGridView1.DataSource = dto.Categories;
+                    MessageBox.Show("已新增運動類別"); 
+                    ShowWorkoutCat();
+
                     txtName.Clear();
                 }
             }
@@ -64,7 +72,6 @@ namespace HHFirstDraft
         {
             selectedDetail.ID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["ID"].Value);
             selectedDetail.Name = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-            txtName.Text = selectedDetail.Name;
             dto.Workouts = bll.GetWorkouts(selectedDetail.ID);
             dataGridView2.DataSource = dto.Workouts;
             dataGridView2.Columns["ID"].HeaderText = "運動編號";
@@ -91,9 +98,9 @@ namespace HHFirstDraft
             {
                 selectedDetail.Name = txtName.Text;
                 bll.Update(selectedDetail);
-                MessageBox.Show("已修改類別名稱");
-                dto.Categories = bll.GetCategories();
-                dataGridView1.DataSource = dto.Categories;
+                MessageBox.Show("已修改類別名稱"); 
+                ShowWorkoutCat();
+
             }
         }
 
@@ -110,14 +117,22 @@ namespace HHFirstDraft
                 {
                     if(bll.Delete(selectedDetail.ID))
                     {
-                        MessageBox.Show("已刪除類別");
-                        dto.Categories = bll.GetCategories();
-                        dataGridView1.DataSource = dto.Categories;
+                        MessageBox.Show("已刪除類別"); 
+                        ShowWorkoutCat();
+
 
                     }
-                    
+
                 }
             }
         }
+        
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            keyword = txtName.Text;
+            isSearch = true;
+            ShowWorkoutCat();
+        }
+        
     }
 }

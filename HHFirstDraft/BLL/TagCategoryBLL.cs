@@ -16,6 +16,10 @@ namespace HHFirstDraft.BLL
         {
             return dao.GetTags();
         }
+        public List<TagCategoryDetailDTO> GetTags(string text)
+        {
+            return dao.GetTags(text);
+        }
         public List<MealDetailDTO> GetMealsWithTagID(int tagID)
         {
             List<MealDetailDTO> dtoList = new List<MealDetailDTO>();

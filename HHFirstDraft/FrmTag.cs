@@ -32,7 +32,9 @@ namespace HHFirstDraft
 
         private void RefreshPage()
         {
-            dto.TagCategories = bll.GetTags();
+            bll = new TagCategoryBLL();
+            if (!isSearch) dto.TagCategories = bll.GetTags();
+            else dto.TagCategories = bll.GetTags(keyword);
             dataGridView1.DataSource = dto.TagCategories;
             dataGridView1.Columns["ID"].HeaderText = "標籤編號";
             dataGridView1.Columns["Name"].HeaderText = "標籤名稱";
@@ -41,6 +43,7 @@ namespace HHFirstDraft
             dataGridView2.Columns["ID"].HeaderText = "餐點編號";
             dataGridView2.Columns["Name"].HeaderText = "餐點名稱";
             dataGridView2.Columns["Calories"].HeaderText = "卡路里";
+            isSearch = false;
         }
 
         TagCategoryDetailDTO detail = new TagCategoryDetailDTO();
@@ -50,7 +53,6 @@ namespace HHFirstDraft
             detail.Name = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();
             dto.Meals = bll.GetMealsWithTagID(detail.ID);
             dataGridView2.DataSource = dto.Meals;
-            textBox1.Text = detail.Name;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -69,7 +71,6 @@ namespace HHFirstDraft
                 detail.Name = textBox1.Text;
                 bll.Add(detail);
                 MessageBox.Show("已新增標籤");
-                bll = new TagCategoryBLL();
                 RefreshPage();
             }
         }
@@ -89,7 +90,6 @@ namespace HHFirstDraft
                 detail.Name = textBox1.Text;
                 bll.Update(detail);
                 MessageBox.Show("已修改標籤");
-                bll = new TagCategoryBLL();
                 RefreshPage();
             }
         }
@@ -106,10 +106,17 @@ namespace HHFirstDraft
                 }
                 bll.Delete(detail.ID);
                 MessageBox.Show("已刪除標籤");
-                bll = new TagCategoryBLL();
                 RefreshPage();
             }
            
+        }
+        bool isSearch = false;
+        string keyword;
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            isSearch = true;
+            keyword = textBox1.Text;
+            RefreshPage();
         }
     }
 }

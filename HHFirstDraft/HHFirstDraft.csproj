@@ -56,49 +56,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\TagCategoryBLL.cs" />
-    <Compile Include="DAL\DAO\TagCategoryDAO.cs" />
-    <Compile Include="DAL\DTO\TagCategoryDetailDTO.cs" />
-    <Compile Include="DAL\DTO\TagCategoryDTO.cs" />
-    <Compile Include="FrmAddMeal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmAddMeal.Designer.cs">
-      <DependentUpon>FrmAddMeal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BLL\ActivityLevelBLL.cs" />
-    <Compile Include="BLL\MealBLL.cs" />
-    <Compile Include="BLL\MemberBLL.cs" />
-    <Compile Include="BLL\StatusBLL.cs" />
-    <Compile Include="BLL\WorkoutBLL.cs" />
-    <Compile Include="BLL\WorkoutCategoryBLL.cs" />
     <Compile Include="DAL\ActivityLevel.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\DAO\ActivityLevelDAO.cs" />
-    <Compile Include="DAL\DAO\HHContext.cs" />
-    <Compile Include="DAL\DAO\MealDAO.cs" />
-    <Compile Include="DAL\DAO\MemberDAO.cs" />
-    <Compile Include="DAL\DAO\StatusDAO.cs" />
-    <Compile Include="DAL\DAO\WorkoutCategoryDAO.cs" />
-    <Compile Include="DAL\DAO\WorkoutDAO.cs" />
+    <Compile Include="DAL\DAO\TagCategoryDAO.cs" />
     <Compile Include="DAL\DietDetail.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\DietLog.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\DTO\ActivityLevelDetailDTO.cs" />
-    <Compile Include="DAL\DTO\ActivityLevelDTO.cs" />
-    <Compile Include="DAL\DTO\MealDetailDTO.cs" />
-    <Compile Include="DAL\DTO\MealDTO.cs" />
-    <Compile Include="DAL\DTO\MemberDetailDTO.cs" />
-    <Compile Include="DAL\DTO\MemberDTO.cs" />
-    <Compile Include="DAL\DTO\StatusDetailDTO.cs" />
-    <Compile Include="DAL\DTO\StatusDTO.cs" />
-    <Compile Include="DAL\DTO\WorkoutCategoryDetailDTO.cs" />
-    <Compile Include="DAL\DTO\WorkoutCategoryDTO.cs" />
-    <Compile Include="DAL\DTO\WorkoutDetailDTO.cs" />
-    <Compile Include="DAL\DTO\WorkoutDTO.cs" />
+    <Compile Include="DAL\DTO\TagCategoryDetailDTO.cs" />
+    <Compile Include="DAL\DTO\TagCategoryDTO.cs" />
     <Compile Include="DAL\HHModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,6 +119,35 @@
     <Compile Include="DAL\WorkoutLog.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FrmAddMeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddMeal.Designer.cs">
+      <DependentUpon>FrmAddMeal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BLL\MealBLL.cs" />
+    <Compile Include="BLL\MemberBLL.cs" />
+    <Compile Include="BLL\WorkoutBLL.cs" />
+    <Compile Include="BLL\WorkoutCategoryBLL.cs" />
+    <Compile Include="DAL\DAO\ActivityLevelDAO.cs" />
+    <Compile Include="DAL\DAO\HHContext.cs" />
+    <Compile Include="DAL\DAO\MealDAO.cs" />
+    <Compile Include="DAL\DAO\MemberDAO.cs" />
+    <Compile Include="DAL\DAO\StatusDAO.cs" />
+    <Compile Include="DAL\DAO\WorkoutCategoryDAO.cs" />
+    <Compile Include="DAL\DAO\WorkoutDAO.cs" />
+    <Compile Include="DAL\DTO\ActivityLevelDetailDTO.cs" />
+    <Compile Include="DAL\DTO\ActivityLevelDTO.cs" />
+    <Compile Include="DAL\DTO\MealDetailDTO.cs" />
+    <Compile Include="DAL\DTO\MealDTO.cs" />
+    <Compile Include="DAL\DTO\MemberDetailDTO.cs" />
+    <Compile Include="DAL\DTO\MemberDTO.cs" />
+    <Compile Include="DAL\DTO\StatusDetailDTO.cs" />
+    <Compile Include="DAL\DTO\StatusDTO.cs" />
+    <Compile Include="DAL\DTO\WorkoutCategoryDetailDTO.cs" />
+    <Compile Include="DAL\DTO\WorkoutCategoryDTO.cs" />
+    <Compile Include="DAL\DTO\WorkoutDetailDTO.cs" />
+    <Compile Include="DAL\DTO\WorkoutDTO.cs" />
     <Compile Include="FrmAddMember.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,10 +257,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="DAL\HHModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HHModel.Context.cs</LastGenOutput>
       <DependentUpon>HHModel.edmx</DependentUpon>
+      <LastGenOutput>HHModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="DAL\HHModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -270,9 +271,5 @@
       <LastGenOutput>HHModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

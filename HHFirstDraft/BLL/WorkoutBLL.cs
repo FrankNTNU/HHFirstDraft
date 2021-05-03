@@ -29,8 +29,8 @@ namespace HHFirstDraft.BLL
             Workout workout = new Workout();
             workout.Name = entity.Name;
             workout.Calories = entity.Calories;
-            workout.ActiyivtyLevelID = entity.ActivityLevelID;
-            workout.WorkoutCategoryID = entity.CategoryID;
+            workout.ActivityLevelID = entity.ActivityLevelID;
+            workout.WorkoutCategoryID = (int)entity.CategoryID;
             return dao.Add(workout);
         }
 
@@ -49,8 +49,8 @@ namespace HHFirstDraft.BLL
             workout.ID = entity.ID;
             workout.Name = entity.Name;
             workout.Calories = entity.Calories;
-            workout.ActiyivtyLevelID = entity.ActivityLevelID;
-            workout.WorkoutCategoryID = entity.CategoryID;
+            workout.ActivityLevelID = entity.ActivityLevelID;
+            workout.WorkoutCategoryID = (int)entity.CategoryID;
             dao.Update(workout);
         }
 

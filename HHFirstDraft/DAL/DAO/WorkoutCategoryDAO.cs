@@ -23,6 +23,20 @@ namespace HHFirstDraft.DAL.DAO
             return dtoList;
         }
 
+        public List<WorkoutCategoryDetailDTO> GetCategories(string text)
+        {
+            List<WorkoutCategory> categories = db.WorkoutCategories.Where(x => x.Name.Contains(text)).ToList();
+            List<WorkoutCategoryDetailDTO> dtoList = new List<WorkoutCategoryDetailDTO>();
+            foreach (var item in categories)
+            {
+                WorkoutCategoryDetailDTO dto = new WorkoutCategoryDetailDTO();
+                dto.ID = item.ID;
+                dto.Name = item.Name;
+                dtoList.Add(dto);
+            }
+            return dtoList;
+        }
+
         public bool Add(WorkoutCategory entity)
         {
             try

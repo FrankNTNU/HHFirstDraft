@@ -13,10 +13,10 @@ namespace HHFirstDraft.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HealthManagement0429Entities : DbContext
+    public partial class HealthManagement0503Entities : DbContext
     {
-        public HealthManagement0429Entities()
-            : base("name=HealthManagement0429Entities")
+        public HealthManagement0503Entities()
+            : base("name=HealthManagement0503Entities")
         {
         }
     
@@ -36,9 +36,9 @@ namespace HHFirstDraft.DAL
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TimesOfDay> TimesOfDays { get; set; }
-        public virtual DbSet<WorkoutCategory> WorkoutCategories { get; set; }
-        public virtual DbSet<Workout> Workouts { get; set; }
         public virtual DbSet<WeightLog> WeightLogs { get; set; }
+        public virtual DbSet<WorkoutCategory> WorkoutCategories { get; set; }
         public virtual DbSet<WorkoutLog> WorkoutLogs { get; set; }
+        public virtual DbSet<Workout> Workouts { get; set; }
     }
 }

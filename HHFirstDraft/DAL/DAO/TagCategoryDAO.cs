@@ -22,6 +22,19 @@ namespace HHFirstDraft.DAL.DAO
             }
             return dtoList;
         }
+        public List<TagCategoryDetailDTO> GetTags(string text)
+        {
+            var list = db.MealTagCategories.Where(x => x.Name.Contains(text)).ToList();
+            List<TagCategoryDetailDTO> dtoList = new List<TagCategoryDetailDTO>();
+            foreach (var item in list)
+            {
+                TagCategoryDetailDTO dto = new TagCategoryDetailDTO();
+                dto.ID = item.ID;
+                dto.Name = item.Name;
+                dtoList.Add(dto);
+            }
+            return dtoList;
+        }
 
         public List<MealDetailDTO> GetMealsWithTagID(int tagID)
         {

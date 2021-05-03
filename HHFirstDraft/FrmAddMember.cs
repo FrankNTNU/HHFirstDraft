@@ -27,7 +27,6 @@ namespace HHFirstDraft
         public MemberDetailDTO detail = new MemberDetailDTO();
         public MemberDTO dto = new MemberDTO();
         MemberBLL bll = new MemberBLL();
-
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -76,7 +75,6 @@ namespace HHFirstDraft
                 cmbStatus.DisplayMember = "Description";
                 cmbStatus.ValueMember = "ID";
             }
-            
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -134,7 +132,6 @@ namespace HHFirstDraft
                         this.Close();
                     }
                 }
-               
             }
         }
 
@@ -237,9 +234,7 @@ namespace HHFirstDraft
                     lbEmail.Text = "Email格式不正確";
                     emailFlag = false;
                 }
-
             }
-            
         }
     }
 }

@@ -24,7 +24,6 @@ namespace HHFirstDraft
         {
             ShowMeals();
         }
-
         public void ShowMeals()
         {
             bll = new MealBLL();
@@ -34,8 +33,11 @@ namespace HHFirstDraft
             dataGridView1.Columns["ID"].HeaderText = "餐點編號";
             dataGridView1.Columns["Name"].HeaderText = "餐點名稱";
             dataGridView1.Columns["Calories"].HeaderText = "卡路里";
-            dataGridView2.Columns["ID"].HeaderText = "標籤編號";
-            dataGridView2.Columns["Name"].HeaderText = "標籤名稱";
+            if (dataGridView2.DataSource != null)
+            {
+                dataGridView2.Columns["ID"].HeaderText = "標籤編號";
+                dataGridView2.Columns["Name"].HeaderText = "標籤名稱";
+            }
             isSearch = false;
         }
 
@@ -111,7 +113,6 @@ namespace HHFirstDraft
                 {
                     bll.RemoveTags(detail.ID); // Delete tags first.
                     MessageBox.Show("附帶餐點標籤已刪除");
-
                 }
 
                 if (bll.Delete(detail.ID)) // Then delete meals.

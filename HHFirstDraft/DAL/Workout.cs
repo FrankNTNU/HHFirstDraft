@@ -21,10 +21,10 @@ namespace HHFirstDraft.DAL
         }
     
         public int ID { get; set; }
-        public Nullable<int> WorkoutCategoryID { get; set; }
+        public int WorkoutCategoryID { get; set; }
         public string Name { get; set; }
-        public int Calories { get; set; }
-        public int ActiyivtyLevelID { get; set; }
+        public double Calories { get; set; }
+        public int ActivityLevelID { get; set; }
     
         public virtual ActivityLevel ActivityLevel { get; set; }
         public virtual WorkoutCategory WorkoutCategory { get; set; }
