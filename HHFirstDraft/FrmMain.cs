@@ -47,11 +47,6 @@ namespace HHFirstDraft
             frm.Show();
         }
 
-        private void FrmMain_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnTag_Click(object sender, EventArgs e)
         {
             FrmTag frm = new FrmTag();

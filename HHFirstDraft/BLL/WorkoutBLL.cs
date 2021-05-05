@@ -63,5 +63,12 @@ namespace HHFirstDraft.BLL
         {
             return dao.IsWorkoutExist(name);
         }
+
+        public List<WorkoutDetailDTO> GetWorkoutByWCAL(int wcID = -1, int alID = -1)
+        {
+
+            return dao.GetWorkouts()
+                .Where(e => (wcID == -1 || e.CategoryID == wcID) && (alID == -1 || e.ActivityLevelID == alID)).ToList();
+        }
     }
 }

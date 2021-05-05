@@ -55,7 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\ActivityLevelBLL.cs" />
     <Compile Include="BLL\TagCategoryBLL.cs" />
+    <Compile Include="BLL\WorkoutLogBLL.cs" />
     <Compile Include="DAL\ActivityLevel.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
@@ -63,6 +65,7 @@
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\DAO\TagCategoryDAO.cs" />
+    <Compile Include="DAL\DAO\WorkoutLogDAO.cs" />
     <Compile Include="DAL\DietDetail.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
@@ -71,6 +74,7 @@
     </Compile>
     <Compile Include="DAL\DTO\TagCategoryDetailDTO.cs" />
     <Compile Include="DAL\DTO\TagCategoryDTO.cs" />
+    <Compile Include="DAL\DTO\WorkoutLogDTO.cs" />
     <Compile Include="DAL\HHModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -160,6 +164,12 @@
     <Compile Include="FrmAddMember.Designer.cs">
       <DependentUpon>FrmAddMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmFrontendAddWorkoutLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFrontendAddWorkoutLog.Designer.cs">
+      <DependentUpon>FrmFrontendAddWorkoutLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAddWorkout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +181,12 @@
     </Compile>
     <Compile Include="FrmAddWorkoutCat.Designer.cs">
       <DependentUpon>FrmAddWorkoutCat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmFrontendMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFrontendMain.Designer.cs">
+      <DependentUpon>FrmFrontendMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -196,6 +212,12 @@
     <Compile Include="FrmTag.Designer.cs">
       <DependentUpon>FrmTag.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmFrontendWorkoutLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmFrontendWorkoutLog.Designer.cs">
+      <DependentUpon>FrmFrontendWorkoutLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmWorkout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,11 +233,17 @@
     <EmbeddedResource Include="FrmAddMember.resx">
       <DependentUpon>FrmAddMember.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmFrontendAddWorkoutLog.resx">
+      <DependentUpon>FrmFrontendAddWorkoutLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAddWorkout.resx">
       <DependentUpon>FrmAddWorkout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAddWorkoutCat.resx">
       <DependentUpon>FrmAddWorkoutCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFrontendMain.resx">
+      <DependentUpon>FrmFrontendMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -228,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTag.resx">
       <DependentUpon>FrmTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmFrontendWorkoutLog.resx">
+      <DependentUpon>FrmFrontendWorkoutLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmWorkout.resx">
       <DependentUpon>FrmWorkout.cs</DependentUpon>

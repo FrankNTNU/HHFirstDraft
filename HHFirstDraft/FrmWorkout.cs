@@ -52,13 +52,14 @@ namespace HHFirstDraft
         private void btnAddWorkout_Click(object sender, EventArgs e)
         {
             FrmAddWorkout frm = new FrmAddWorkout(this);
+            //Form frm = new Form();
             frm.TopLevel = false;
             frm.AutoScroll = true;
             this.Controls.Add(frm);
             frm.FormBorderStyle = FormBorderStyle.None;
-            frm.dto = dto;
-            frm.detail = detail;
-            frm.IsUpdate = false;
+            //frm.dto = dto;
+            //frm.detail = detail;
+            //frm.IsUpdate = false;
             frm.Show();
         }
         string keyword;
