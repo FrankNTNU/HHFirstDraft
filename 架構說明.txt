@@ -4,5 +4,5 @@ DAL(Data Access Layer)為資料存取層，DAL資料夾中包含DTO與DAO資料�
 DTO(Data Trasnfer Object)為資料傳輸物件，DTO資料夾中有多個資料表為名稱的類別，類別中定義資料傳輸物件的屬性，其中包含資料表的擴充屬性。
 DAO(Data Access Object)為資料存取物件，DAO資料夾中有一個 ___Context.cs的類別(宣告實體模型變數)及多個資料表為名稱的類別，類別中為方法實作。
 2. 資料傳輸方向:
-區域: 表單 <-> BLL <-> DAO
-資料:    DTO <-> DB資料
+區域: 表單 <-> BLL <-> DAO <-> 實體模型
+資料:    DTO <-> 一筆DB資料
