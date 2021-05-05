@@ -12,18 +12,28 @@ namespace HHFirstDraft.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class MealTagCategory
+    public partial class Nutrient
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MealTagCategory()
+        public Nutrient()
         {
-            this.MealTags = new HashSet<MealTag>();
+            this.MealOptions = new HashSet<MealOption>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
+        public double Fat { get; set; }
+        public double Protein { get; set; }
+        public double Carbs { get; set; }
+        public double Sugar { get; set; }
+        public double VitA { get; set; }
+        public double VitB { get; set; }
+        public double VitC { get; set; }
+        public double VitD { get; set; }
+        public double VitE { get; set; }
+        public double Na { get; set; }
+        public double Ka { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MealTag> MealTags { get; set; }
+        public virtual ICollection<MealOption> MealOptions { get; set; }
     }
 }

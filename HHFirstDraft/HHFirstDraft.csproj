@@ -59,6 +59,9 @@
     <Compile Include="DAL\ActivityLevel.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Comment.cs">
+      <DependentUpon>HHModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\DAO\TagCategoryDAO.cs" />
     <Compile Include="DAL\DietDetail.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
@@ -95,7 +98,7 @@
     <Compile Include="DAL\Member.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Preference.cs">
+    <Compile Include="DAL\Nutrient.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Status.cs">
@@ -117,6 +120,9 @@
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\WorkoutLog.cs">
+      <DependentUpon>HHModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\WorkoutPreference.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="FrmAddMeal.cs">

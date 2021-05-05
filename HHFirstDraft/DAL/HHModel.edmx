@@ -4,13 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HealthManagement0503Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="HealthManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActivityLevels">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CommentContent" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="AddDate" Type="datetime" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="MealOptionID" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DietDetails">
           <Key>
@@ -38,6 +51,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Calories" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="NutrientID" Type="int" />
         </EntityType>
         <EntityType Name="MealTagCategories">
           <Key>
@@ -73,13 +87,22 @@
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="ActivityLevelID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Preference">
+        <EntityType Name="Nutrient">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MemberID" Type="int" Nullable="false" />
-          <Property Name="WorkoutCategoryID" Type="int" Nullable="false" />
+          <Property Name="Fat" Type="float" Nullable="false" />
+          <Property Name="Protein" Type="float" Nullable="false" />
+          <Property Name="Carbs" Type="float" Nullable="false" />
+          <Property Name="Sugar" Type="float" Nullable="false" />
+          <Property Name="VitA" Type="float" Nullable="false" />
+          <Property Name="VitB" Type="float" Nullable="false" />
+          <Property Name="VitC" Type="float" Nullable="false" />
+          <Property Name="VitD" Type="float" Nullable="false" />
+          <Property Name="VitE" Type="float" Nullable="false" />
+          <Property Name="Na" Type="float" Nullable="false" />
+          <Property Name="Ka" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -131,6 +154,14 @@
           <Property Name="EditTime" Type="datetime" Nullable="false" />
           <Property Name="WorkoutHours" Type="float" Nullable="false" />
         </EntityType>
+        <EntityType Name="WorkoutPreferences">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberID" Type="int" Nullable="false" />
+          <Property Name="WorkoutCategoryID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Workouts">
           <Key>
             <PropertyRef Name="ID" />
@@ -141,6 +172,30 @@
           <Property Name="Calories" Type="float" Nullable="false" />
           <Property Name="ActivityLevelID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Comments_MealOptions">
+          <End Role="MealOptions" Type="Self.MealOptions" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MealOptions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="MealOptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Members">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="MemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DietDetails_DietLog">
           <End Role="DietLog" Type="Self.DietLog" Multiplicity="1" />
           <End Role="DietDetails" Type="Self.DietDetails" Multiplicity="*" />
@@ -186,6 +241,18 @@
             </Principal>
             <Dependent Role="DietLog">
               <PropertyRef Name="TimeOfDayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealOptions_Nutrient">
+          <End Role="Nutrient" Type="Self.Nutrient" Multiplicity="0..1" />
+          <End Role="MealOptions" Type="Self.MealOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nutrient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MealOptions">
+              <PropertyRef Name="NutrientID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -239,24 +306,24 @@
         </Association>
         <Association Name="FK_Preference_Members">
           <End Role="Members" Type="Self.Members" Multiplicity="1" />
-          <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+          <End Role="WorkoutPreferences" Type="Self.WorkoutPreferences" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Preference">
+            <Dependent Role="WorkoutPreferences">
               <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Preference_WorkoutCategories">
           <End Role="WorkoutCategories" Type="Self.WorkoutCategories" Multiplicity="1" />
-          <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+          <End Role="WorkoutPreferences" Type="Self.WorkoutPreferences" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkoutCategories">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Preference">
+            <Dependent Role="WorkoutPreferences">
               <PropertyRef Name="WorkoutCategoryID" />
             </Dependent>
           </ReferentialConstraint>
@@ -321,22 +388,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HealthManagement0503ModelStoreContainer">
+        <EntityContainer Name="HealthManagementModelStoreContainer">
           <EntitySet Name="ActivityLevels" EntityType="Self.ActivityLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DietDetails" EntityType="Self.DietDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DietLog" EntityType="Self.DietLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealOptions" EntityType="Self.MealOptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealTagCategories" EntityType="Self.MealTagCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealTags" EntityType="Self.MealTags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nutrient" EntityType="Self.Nutrient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimesOfDay" EntityType="Self.TimesOfDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WeightLog" EntityType="Self.WeightLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkoutCategories" EntityType="Self.WorkoutCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkoutLog" EntityType="Self.WorkoutLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkoutPreferences" EntityType="Self.WorkoutPreferences" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workouts" EntityType="Self.Workouts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_MealOptions" Association="Self.FK_Comments_MealOptions">
+            <End Role="MealOptions" EntitySet="MealOptions" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Members" Association="Self.FK_Comments_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_DietDetails_DietLog" Association="Self.FK_DietDetails_DietLog">
             <End Role="DietLog" EntitySet="DietLog" />
             <End Role="DietDetails" EntitySet="DietDetails" />
@@ -352,6 +429,10 @@
           <AssociationSet Name="FK_DietLog_TimesOfDay" Association="Self.FK_DietLog_TimesOfDay">
             <End Role="TimesOfDay" EntitySet="TimesOfDay" />
             <End Role="DietLog" EntitySet="DietLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealOptions_Nutrient" Association="Self.FK_MealOptions_Nutrient">
+            <End Role="Nutrient" EntitySet="Nutrient" />
+            <End Role="MealOptions" EntitySet="MealOptions" />
           </AssociationSet>
           <AssociationSet Name="FK_MealTags_MealOptions" Association="Self.FK_MealTags_MealOptions">
             <End Role="MealOptions" EntitySet="MealOptions" />
@@ -371,11 +452,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Preference_Members" Association="Self.FK_Preference_Members">
             <End Role="Members" EntitySet="Members" />
-            <End Role="Preference" EntitySet="Preference" />
+            <End Role="WorkoutPreferences" EntitySet="WorkoutPreferences" />
           </AssociationSet>
           <AssociationSet Name="FK_Preference_WorkoutCategories" Association="Self.FK_Preference_WorkoutCategories">
             <End Role="WorkoutCategories" EntitySet="WorkoutCategories" />
-            <End Role="Preference" EntitySet="Preference" />
+            <End Role="WorkoutPreferences" EntitySet="WorkoutPreferences" />
           </AssociationSet>
           <AssociationSet Name="FK_WeightLog_Members" Association="Self.FK_WeightLog_Members">
             <End Role="Members" EntitySet="Members" />
@@ -402,7 +483,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="HealthManagement0503Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="HealthManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ActivityLevel">
           <Key>
             <PropertyRef Name="ID" />
@@ -411,6 +492,21 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Members_ActivityLevels" FromRole="ActivityLevels" ToRole="Members" />
           <NavigationProperty Name="Workouts" Relationship="Self.FK_Workouts_ActivityLevels" FromRole="ActivityLevels" ToRole="Workouts" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CommentContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="MealOptionID" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MealOption" Relationship="Self.FK_Comments_MealOptions" FromRole="Comments" ToRole="MealOptions" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Comments_Members" FromRole="Comments" ToRole="Members" />
         </EntityType>
         <EntityType Name="DietDetail">
           <Key>
@@ -443,7 +539,10 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Calories" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="NutrientID" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_MealOptions" FromRole="MealOptions" ToRole="Comments" />
           <NavigationProperty Name="DietDetails" Relationship="Self.FK_DietDetails_MealOptions" FromRole="MealOptions" ToRole="DietDetails" />
+          <NavigationProperty Name="Nutrient" Relationship="Self.FK_MealOptions_Nutrient" FromRole="MealOptions" ToRole="Nutrient" />
           <NavigationProperty Name="MealTags" Relationship="Self.FK_MealTags_MealOptions" FromRole="MealOptions" ToRole="MealTags" />
         </EntityType>
         <EntityType Name="MealTagCategory">
@@ -483,21 +582,30 @@
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="ActivityLevelID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActivityLevel" Relationship="Self.FK_Members_ActivityLevels" FromRole="Members" ToRole="ActivityLevels" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Members" FromRole="Members" ToRole="Comments" />
           <NavigationProperty Name="DietLogs" Relationship="Self.FK_DietLog_Members" FromRole="Members" ToRole="DietLog" />
           <NavigationProperty Name="Status" Relationship="Self.FK_Members_Status" FromRole="Members" ToRole="Status" />
-          <NavigationProperty Name="Preferences" Relationship="Self.FK_Preference_Members" FromRole="Members" ToRole="Preference" />
+          <NavigationProperty Name="WorkoutPreferences" Relationship="Self.FK_Preference_Members" FromRole="Members" ToRole="WorkoutPreferences" />
           <NavigationProperty Name="WeightLogs" Relationship="Self.FK_WeightLog_Members" FromRole="Members" ToRole="WeightLog" />
           <NavigationProperty Name="WorkoutLogs" Relationship="Self.FK_WorkoutLog_Members" FromRole="Members" ToRole="WorkoutLog" />
         </EntityType>
-        <EntityType Name="Preference">
+        <EntityType Name="Nutrient">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberID" Type="Int32" Nullable="false" />
-          <Property Name="WorkoutCategoryID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Member" Relationship="Self.FK_Preference_Members" FromRole="Preference" ToRole="Members" />
-          <NavigationProperty Name="WorkoutCategory" Relationship="Self.FK_Preference_WorkoutCategories" FromRole="Preference" ToRole="WorkoutCategories" />
+          <Property Name="Fat" Type="Double" Nullable="false" />
+          <Property Name="Protein" Type="Double" Nullable="false" />
+          <Property Name="Carbs" Type="Double" Nullable="false" />
+          <Property Name="Sugar" Type="Double" Nullable="false" />
+          <Property Name="VitA" Type="Double" Nullable="false" />
+          <Property Name="VitB" Type="Double" Nullable="false" />
+          <Property Name="VitC" Type="Double" Nullable="false" />
+          <Property Name="VitD" Type="Double" Nullable="false" />
+          <Property Name="VitE" Type="Double" Nullable="false" />
+          <Property Name="Na" Type="Double" Nullable="false" />
+          <Property Name="Ka" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MealOptions" Relationship="Self.FK_MealOptions_Nutrient" FromRole="Nutrient" ToRole="MealOptions" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -541,7 +649,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Preferences" Relationship="Self.FK_Preference_WorkoutCategories" FromRole="WorkoutCategories" ToRole="Preference" />
+          <NavigationProperty Name="WorkoutPreferences" Relationship="Self.FK_Preference_WorkoutCategories" FromRole="WorkoutCategories" ToRole="WorkoutPreferences" />
           <NavigationProperty Name="Workouts" Relationship="Self.FK_Workouts_WorkoutCategories" FromRole="WorkoutCategories" ToRole="Workouts" />
         </EntityType>
         <EntityType Name="WorkoutLog">
@@ -555,6 +663,16 @@
           <Property Name="WorkoutHours" Type="Double" Nullable="false" />
           <NavigationProperty Name="Member" Relationship="Self.FK_WorkoutLog_Members" FromRole="WorkoutLog" ToRole="Members" />
           <NavigationProperty Name="Workout" Relationship="Self.FK_WorkoutLog_Workouts" FromRole="WorkoutLog" ToRole="Workouts" />
+        </EntityType>
+        <EntityType Name="WorkoutPreference">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberID" Type="Int32" Nullable="false" />
+          <Property Name="WorkoutCategoryID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Preference_Members" FromRole="WorkoutPreferences" ToRole="Members" />
+          <NavigationProperty Name="WorkoutCategory" Relationship="Self.FK_Preference_WorkoutCategories" FromRole="WorkoutPreferences" ToRole="WorkoutCategories" />
         </EntityType>
         <EntityType Name="Workout">
           <Key>
@@ -590,6 +708,30 @@
             </Principal>
             <Dependent Role="Workouts">
               <PropertyRef Name="ActivityLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_MealOptions">
+          <End Role="MealOptions" Type="Self.MealOption" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MealOptions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="MealOptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_Members">
+          <End Role="Members" Type="Self.Member" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -641,6 +783,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MealOptions_Nutrient">
+          <End Role="Nutrient" Type="Self.Nutrient" Multiplicity="0..1" />
+          <End Role="MealOptions" Type="Self.MealOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nutrient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MealOptions">
+              <PropertyRef Name="NutrientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MealTags_MealOptions">
           <End Role="MealOptions" Type="Self.MealOption" Multiplicity="1" />
           <End Role="MealTags" Type="Self.MealTag" Multiplicity="*" />
@@ -679,12 +833,12 @@
         </Association>
         <Association Name="FK_Preference_Members">
           <End Role="Members" Type="Self.Member" Multiplicity="1" />
-          <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+          <End Role="WorkoutPreferences" Type="Self.WorkoutPreference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Members">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Preference">
+            <Dependent Role="WorkoutPreferences">
               <PropertyRef Name="MemberID" />
             </Dependent>
           </ReferentialConstraint>
@@ -715,12 +869,12 @@
         </Association>
         <Association Name="FK_Preference_WorkoutCategories">
           <End Role="WorkoutCategories" Type="Self.WorkoutCategory" Multiplicity="1" />
-          <End Role="Preference" Type="Self.Preference" Multiplicity="*" />
+          <End Role="WorkoutPreferences" Type="Self.WorkoutPreference" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkoutCategories">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Preference">
+            <Dependent Role="WorkoutPreferences">
               <PropertyRef Name="WorkoutCategoryID" />
             </Dependent>
           </ReferentialConstraint>
@@ -749,21 +903,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HealthManagement0503Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="HealthManagement0505Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ActivityLevels" EntityType="Self.ActivityLevel" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="DietDetails" EntityType="Self.DietDetail" />
           <EntitySet Name="DietLogs" EntityType="Self.DietLog" />
           <EntitySet Name="MealOptions" EntityType="Self.MealOption" />
           <EntitySet Name="MealTagCategories" EntityType="Self.MealTagCategory" />
           <EntitySet Name="MealTags" EntityType="Self.MealTag" />
           <EntitySet Name="Members" EntityType="Self.Member" />
-          <EntitySet Name="Preferences" EntityType="Self.Preference" />
+          <EntitySet Name="Nutrients" EntityType="Self.Nutrient" />
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="TimesOfDays" EntityType="Self.TimesOfDay" />
           <EntitySet Name="WeightLogs" EntityType="Self.WeightLog" />
           <EntitySet Name="WorkoutCategories" EntityType="Self.WorkoutCategory" />
           <EntitySet Name="WorkoutLogs" EntityType="Self.WorkoutLog" />
+          <EntitySet Name="WorkoutPreferences" EntityType="Self.WorkoutPreference" />
           <EntitySet Name="Workouts" EntityType="Self.Workout" />
           <AssociationSet Name="FK_Members_ActivityLevels" Association="Self.FK_Members_ActivityLevels">
             <End Role="ActivityLevels" EntitySet="ActivityLevels" />
@@ -772,6 +928,14 @@
           <AssociationSet Name="FK_Workouts_ActivityLevels" Association="Self.FK_Workouts_ActivityLevels">
             <End Role="ActivityLevels" EntitySet="ActivityLevels" />
             <End Role="Workouts" EntitySet="Workouts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_MealOptions" Association="Self.FK_Comments_MealOptions">
+            <End Role="MealOptions" EntitySet="MealOptions" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Members" Association="Self.FK_Comments_Members">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_DietDetails_DietLog" Association="Self.FK_DietDetails_DietLog">
             <End Role="DietLog" EntitySet="DietLogs" />
@@ -789,6 +953,10 @@
             <End Role="TimesOfDay" EntitySet="TimesOfDays" />
             <End Role="DietLog" EntitySet="DietLogs" />
           </AssociationSet>
+          <AssociationSet Name="FK_MealOptions_Nutrient" Association="Self.FK_MealOptions_Nutrient">
+            <End Role="Nutrient" EntitySet="Nutrients" />
+            <End Role="MealOptions" EntitySet="MealOptions" />
+          </AssociationSet>
           <AssociationSet Name="FK_MealTags_MealOptions" Association="Self.FK_MealTags_MealOptions">
             <End Role="MealOptions" EntitySet="MealOptions" />
             <End Role="MealTags" EntitySet="MealTags" />
@@ -803,7 +971,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Preference_Members" Association="Self.FK_Preference_Members">
             <End Role="Members" EntitySet="Members" />
-            <End Role="Preference" EntitySet="Preferences" />
+            <End Role="WorkoutPreferences" EntitySet="WorkoutPreferences" />
           </AssociationSet>
           <AssociationSet Name="FK_WeightLog_Members" Association="Self.FK_WeightLog_Members">
             <End Role="Members" EntitySet="Members" />
@@ -815,7 +983,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Preference_WorkoutCategories" Association="Self.FK_Preference_WorkoutCategories">
             <End Role="WorkoutCategories" EntitySet="WorkoutCategories" />
-            <End Role="Preference" EntitySet="Preferences" />
+            <End Role="WorkoutPreferences" EntitySet="WorkoutPreferences" />
           </AssociationSet>
           <AssociationSet Name="FK_Workouts_WorkoutCategories" Association="Self.FK_Workouts_WorkoutCategories">
             <End Role="WorkoutCategories" EntitySet="WorkoutCategories" />
@@ -831,17 +999,31 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HealthManagement0503ModelStoreContainer" CdmEntityContainer="HealthManagement0503Entities">
+        <EntityContainerMapping StorageEntityContainer="HealthManagementModelStoreContainer" CdmEntityContainer="HealthManagement0505Entities">
           <EntitySetMapping Name="ActivityLevels">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.ActivityLevel">
+            <EntityTypeMapping TypeName="HealthManagementModel.ActivityLevel">
               <MappingFragment StoreEntitySet="ActivityLevels">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="HealthManagementModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="MealOptionID" ColumnName="MealOptionID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DietDetails">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.DietDetail">
+            <EntityTypeMapping TypeName="HealthManagementModel.DietDetail">
               <MappingFragment StoreEntitySet="DietDetails">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="DietLogID" ColumnName="DietLogID" />
@@ -851,7 +1033,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DietLogs">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.DietLog">
+            <EntityTypeMapping TypeName="HealthManagementModel.DietLog">
               <MappingFragment StoreEntitySet="DietLog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
@@ -861,17 +1043,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MealOptions">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.MealOption">
+            <EntityTypeMapping TypeName="HealthManagementModel.MealOption">
               <MappingFragment StoreEntitySet="MealOptions">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Calories" ColumnName="Calories" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="NutrientID" ColumnName="NutrientID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MealTagCategories">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.MealTagCategory">
+            <EntityTypeMapping TypeName="HealthManagementModel.MealTagCategory">
               <MappingFragment StoreEntitySet="MealTagCategories">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -879,7 +1062,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MealTags">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.MealTag">
+            <EntityTypeMapping TypeName="HealthManagementModel.MealTag">
               <MappingFragment StoreEntitySet="MealTags">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MealOptionID" ColumnName="MealOptionID" />
@@ -888,7 +1071,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Members">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.Member">
+            <EntityTypeMapping TypeName="HealthManagementModel.Member">
               <MappingFragment StoreEntitySet="Members">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="TaiwanID" ColumnName="TaiwanID" />
@@ -907,17 +1090,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Preferences">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.Preference">
-              <MappingFragment StoreEntitySet="Preference">
+          <EntitySetMapping Name="Nutrients">
+            <EntityTypeMapping TypeName="HealthManagementModel.Nutrient">
+              <MappingFragment StoreEntitySet="Nutrient">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
-                <ScalarProperty Name="WorkoutCategoryID" ColumnName="WorkoutCategoryID" />
+                <ScalarProperty Name="Fat" ColumnName="Fat" />
+                <ScalarProperty Name="Protein" ColumnName="Protein" />
+                <ScalarProperty Name="Carbs" ColumnName="Carbs" />
+                <ScalarProperty Name="Sugar" ColumnName="Sugar" />
+                <ScalarProperty Name="VitA" ColumnName="VitA" />
+                <ScalarProperty Name="VitB" ColumnName="VitB" />
+                <ScalarProperty Name="VitC" ColumnName="VitC" />
+                <ScalarProperty Name="VitD" ColumnName="VitD" />
+                <ScalarProperty Name="VitE" ColumnName="VitE" />
+                <ScalarProperty Name="Na" ColumnName="Na" />
+                <ScalarProperty Name="Ka" ColumnName="Ka" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.Status">
+            <EntityTypeMapping TypeName="HealthManagementModel.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -925,7 +1117,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.sysdiagram">
+            <EntityTypeMapping TypeName="HealthManagementModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -936,7 +1128,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TimesOfDays">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.TimesOfDay">
+            <EntityTypeMapping TypeName="HealthManagementModel.TimesOfDay">
               <MappingFragment StoreEntitySet="TimesOfDay">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -944,7 +1136,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WeightLogs">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.WeightLog">
+            <EntityTypeMapping TypeName="HealthManagementModel.WeightLog">
               <MappingFragment StoreEntitySet="WeightLog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
@@ -954,7 +1146,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WorkoutCategories">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.WorkoutCategory">
+            <EntityTypeMapping TypeName="HealthManagementModel.WorkoutCategory">
               <MappingFragment StoreEntitySet="WorkoutCategories">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -962,7 +1154,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WorkoutLogs">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.WorkoutLog">
+            <EntityTypeMapping TypeName="HealthManagementModel.WorkoutLog">
               <MappingFragment StoreEntitySet="WorkoutLog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="MemberID" ColumnName="MemberID" />
@@ -972,8 +1164,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="WorkoutPreferences">
+            <EntityTypeMapping TypeName="HealthManagementModel.WorkoutPreference">
+              <MappingFragment StoreEntitySet="WorkoutPreferences">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="WorkoutCategoryID" ColumnName="WorkoutCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Workouts">
-            <EntityTypeMapping TypeName="HealthManagement0503Model.Workout">
+            <EntityTypeMapping TypeName="HealthManagementModel.Workout">
               <MappingFragment StoreEntitySet="Workouts">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="WorkoutCategoryID" ColumnName="WorkoutCategoryID" />
@@ -1000,7 +1201,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
