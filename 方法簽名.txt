@@ -49,6 +49,8 @@ WorkourCategory類別
 方法
 GetCategories()
 回傳運動分類清單
+GetCategories(string)
+回傳名稱符合部分字串搜尋的分類清單
 Add(WorkoutCategory)
 新增一筆運動分類，回傳是否成功
 Update(WorkoutCategory)
@@ -91,6 +93,8 @@ TagCategory類別
 方法
 GetTags()
 回傳標籤清單
+GetTags(string)
+回傳符合標籤部分字串的標籤清單
 Add(TagCategory)
 新增一筆標籤
 Update(Tag)
