@@ -120,5 +120,10 @@ namespace HHFirstDraft
         {
             mealForm.ShowMeals();
         }
+
+        private void txtCalories_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = General.isNumber(e);
+        }
     }
 }

@@ -44,6 +44,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,19 +56,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\ActivityLevelBLL.cs" />
+    <Compile Include="BLL\CommentBLL.cs" />
+    <Compile Include="BLL\CommentCategoryBLL.cs" />
     <Compile Include="BLL\TagCategoryBLL.cs" />
+    <Compile Include="BLL\WeightLogBLL.cs" />
     <Compile Include="DAL\ActivityLevel.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Comment.cs">
+      <DependentUpon>HHModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\CommentCategory.cs">
+      <DependentUpon>HHModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\DAO\CommentCategoryDAO.cs" />
+    <Compile Include="DAL\DAO\CommentDAO.cs" />
     <Compile Include="DAL\DAO\TagCategoryDAO.cs" />
+    <Compile Include="DAL\DAO\WeightLogDAO.cs" />
     <Compile Include="DAL\DietDetail.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\DietLog.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\DTO\CommentCategoryDetailDTO.cs" />
+    <Compile Include="DAL\DTO\CommentCategoryDTO.cs" />
+    <Compile Include="DAL\DTO\CommentDetailDTO.cs" />
+    <Compile Include="DAL\DTO\CommentDTO.cs" />
     <Compile Include="DAL\DTO\TagCategoryDetailDTO.cs" />
     <Compile Include="DAL\DTO\TagCategoryDTO.cs" />
+    <Compile Include="DAL\DTO\WeightLogDTO.cs" />
+    <Compile Include="DAL\DTO\WeightLogDetailDTO.cs" />
     <Compile Include="DAL\HHModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,7 +115,7 @@
     <Compile Include="DAL\Member.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Preference.cs">
+    <Compile Include="DAL\Nutrient.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Status.cs">
@@ -118,6 +138,15 @@
     </Compile>
     <Compile Include="DAL\WorkoutLog.cs">
       <DependentUpon>HHModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\WorkoutPreference.cs">
+      <DependentUpon>HHModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddComment.Designer.cs">
+      <DependentUpon>FrmAddComment.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmAddMeal.cs">
       <SubType>Form</SubType>
@@ -154,6 +183,12 @@
     <Compile Include="FrmAddMember.Designer.cs">
       <DependentUpon>FrmAddMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAddWeightLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddWeightLog.Designer.cs">
+      <DependentUpon>FrmAddWeightLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmAddWorkout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +200,12 @@
     </Compile>
     <Compile Include="FrmAddWorkoutCat.Designer.cs">
       <DependentUpon>FrmAddWorkoutCat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmComment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmComment.Designer.cs">
+      <DependentUpon>FrmComment.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
@@ -190,6 +231,18 @@
     <Compile Include="FrmTag.Designer.cs">
       <DependentUpon>FrmTag.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmWeightLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWeightLog.Designer.cs">
+      <DependentUpon>FrmWeightLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmWeightLogChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmWeightLogChart.Designer.cs">
+      <DependentUpon>FrmWeightLogChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmWorkout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,17 +252,26 @@
     <Compile Include="General.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAddComment.resx">
+      <DependentUpon>FrmAddComment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAddMeal.resx">
       <DependentUpon>FrmAddMeal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAddMember.resx">
       <DependentUpon>FrmAddMember.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddWeightLog.resx">
+      <DependentUpon>FrmAddWeightLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmAddWorkout.resx">
       <DependentUpon>FrmAddWorkout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAddWorkoutCat.resx">
       <DependentUpon>FrmAddWorkoutCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmComment.resx">
+      <DependentUpon>FrmComment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
@@ -222,6 +284,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTag.resx">
       <DependentUpon>FrmTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWeightLog.resx">
+      <DependentUpon>FrmWeightLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmWeightLogChart.resx">
+      <DependentUpon>FrmWeightLogChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmWorkout.resx">
       <DependentUpon>FrmWorkout.cs</DependentUpon>

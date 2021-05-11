@@ -17,6 +17,7 @@ namespace HHFirstDraft.BLL
         ActivityLevelDAO activityLevelDAO = new ActivityLevelDAO();
         public MemberDTO GetMembers()
         {
+            
             MemberDTO dto = new MemberDTO();
             dto.Members = dao.GetMembers();
             dto.Statuses = statusDAO.GetStatuses();
@@ -59,7 +60,6 @@ namespace HHFirstDraft.BLL
         {
             Member member = new Member();
             member.Name = entity.Name;
-            member.ID = entity.ID;
             member.Phone = entity.Phone;
             member.Email = entity.Email;
             member.StatusID = entity.StatusID;

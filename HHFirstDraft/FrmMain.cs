@@ -71,5 +71,27 @@ namespace HHFirstDraft
             frm.FormBorderStyle = FormBorderStyle.None;
             frm.Show();
         }
+
+       
+
+        private void btnComment_Click(object sender, EventArgs e)
+        {
+            FrmComment frm = new FrmComment();
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.Show();
+        }
+
+        private void btnWeightLog_Click(object sender, EventArgs e)
+        {
+            FrmWeightLog frm = new FrmWeightLog();
+            frm.TopLevel = false;
+            frm.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(frm);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.Show();
+        }
     }
 }

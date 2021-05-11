@@ -17,8 +17,9 @@ namespace HHFirstDraft.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Member()
         {
+            this.Comments = new HashSet<Comment>();
             this.DietLogs = new HashSet<DietLog>();
-            this.Preferences = new HashSet<Preference>();
+            this.WorkoutPreferences = new HashSet<WorkoutPreference>();
             this.WeightLogs = new HashSet<WeightLog>();
             this.WorkoutLogs = new HashSet<WorkoutLog>();
         }
@@ -40,10 +41,12 @@ namespace HHFirstDraft.DAL
     
         public virtual ActivityLevel ActivityLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DietLog> DietLogs { get; set; }
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Preference> Preferences { get; set; }
+        public virtual ICollection<WorkoutPreference> WorkoutPreferences { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WeightLog> WeightLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

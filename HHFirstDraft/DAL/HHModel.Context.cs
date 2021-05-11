@@ -13,10 +13,10 @@ namespace HHFirstDraft.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HealthManagement0503Entities : DbContext
+    public partial class HealthManagement0505Entities : DbContext
     {
-        public HealthManagement0503Entities()
-            : base("name=HealthManagement0503Entities")
+        public HealthManagement0505Entities()
+            : base("name=HealthManagement0505Entities")
         {
         }
     
@@ -26,19 +26,22 @@ namespace HHFirstDraft.DAL
         }
     
         public virtual DbSet<ActivityLevel> ActivityLevels { get; set; }
+        public virtual DbSet<CommentCategory> CommentCategories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<DietDetail> DietDetails { get; set; }
         public virtual DbSet<DietLog> DietLogs { get; set; }
         public virtual DbSet<MealOption> MealOptions { get; set; }
         public virtual DbSet<MealTagCategory> MealTagCategories { get; set; }
         public virtual DbSet<MealTag> MealTags { get; set; }
         public virtual DbSet<Member> Members { get; set; }
-        public virtual DbSet<Preference> Preferences { get; set; }
+        public virtual DbSet<Nutrient> Nutrients { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TimesOfDay> TimesOfDays { get; set; }
         public virtual DbSet<WeightLog> WeightLogs { get; set; }
         public virtual DbSet<WorkoutCategory> WorkoutCategories { get; set; }
         public virtual DbSet<WorkoutLog> WorkoutLogs { get; set; }
+        public virtual DbSet<WorkoutPreference> WorkoutPreferences { get; set; }
         public virtual DbSet<Workout> Workouts { get; set; }
     }
 }

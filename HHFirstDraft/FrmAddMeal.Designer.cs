@@ -60,6 +60,7 @@
             this.txtCalories.Name = "txtCalories";
             this.txtCalories.Size = new System.Drawing.Size(247, 42);
             this.txtCalories.TabIndex = 1;
+            this.txtCalories.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCalories_KeyPress);
             // 
             // lbName
             // 
@@ -96,11 +97,11 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Noto Sans TC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(790, 77);
+            this.label2.Location = new System.Drawing.Point(827, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 35);
+            this.label2.Size = new System.Drawing.Size(111, 35);
             this.label2.TabIndex = 82;
-            this.label2.Text = "雙擊選擇標籤";
+            this.label2.Text = "選擇標籤";
             // 
             // panel1
             // 

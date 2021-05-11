@@ -31,11 +31,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnTag = new System.Windows.Forms.Button();
             this.btnMeal = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
             this.btnWorkout = new System.Windows.Forms.Button();
             this.btnMember = new System.Windows.Forms.Button();
+            this.btnWeightLog = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -72,15 +74,37 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Silver;
+            this.splitContainer1.Panel1.Controls.Add(this.btnWeightLog);
+            this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.btnTag);
             this.splitContainer1.Panel1.Controls.Add(this.btnMeal);
             this.splitContainer1.Panel1.Controls.Add(this.btnCategory);
             this.splitContainer1.Panel1.Controls.Add(this.btnWorkout);
             this.splitContainer1.Panel1.Controls.Add(this.btnMember);
-            this.splitContainer1.Size = new System.Drawing.Size(1248, 576);
+            this.splitContainer1.Size = new System.Drawing.Size(1248, 686);
             this.splitContainer1.SplitterDistance = 261;
             this.splitContainer1.TabIndex = 7;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Gainsboro;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Noto Sans TC", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(0, 480);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(5);
+            this.button1.Size = new System.Drawing.Size(261, 96);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "會員留言";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.btnComment_Click);
             // 
             // btnTag
             // 
@@ -183,11 +207,31 @@
             this.btnMember.UseVisualStyleBackColor = false;
             this.btnMember.Click += new System.EventHandler(this.btnMember_Click);
             // 
+            // btnWeightLog
+            // 
+            this.btnWeightLog.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnWeightLog.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnWeightLog.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnWeightLog.FlatAppearance.BorderColor = System.Drawing.Color.DimGray;
+            this.btnWeightLog.FlatAppearance.BorderSize = 0;
+            this.btnWeightLog.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnWeightLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWeightLog.Font = new System.Drawing.Font("Noto Sans TC", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btnWeightLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWeightLog.Location = new System.Drawing.Point(0, 576);
+            this.btnWeightLog.Name = "btnWeightLog";
+            this.btnWeightLog.Padding = new System.Windows.Forms.Padding(5);
+            this.btnWeightLog.Size = new System.Drawing.Size(261, 96);
+            this.btnWeightLog.TabIndex = 10;
+            this.btnWeightLog.Text = "體重記錄";
+            this.btnWeightLog.UseVisualStyleBackColor = false;
+            this.btnWeightLog.Click += new System.EventHandler(this.btnWeightLog_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1248, 673);
+            this.ClientSize = new System.Drawing.Size(1248, 783);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Name = "FrmMain";
@@ -213,5 +257,7 @@
         private System.Windows.Forms.Button btnMember;
         private System.Windows.Forms.Button btnTag;
         private System.Windows.Forms.Button btnMeal;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnWeightLog;
     }
 }
