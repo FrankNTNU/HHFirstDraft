@@ -45,6 +45,8 @@
             this.cmbNames = new System.Windows.Forms.ComboBox();
             this.cmbMeals = new System.Windows.Forms.ComboBox();
             this.lblMeal = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtFeedback = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numerticRating)).BeginInit();
             this.SuspendLayout();
@@ -150,7 +152,7 @@
             this.txtComment.Location = new System.Drawing.Point(637, 126);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(396, 336);
+            this.txtComment.Size = new System.Drawing.Size(396, 160);
             this.txtComment.TabIndex = 93;
             // 
             // label3
@@ -255,11 +257,34 @@
             this.lblMeal.Text = "餐點";
             this.lblMeal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Noto Sans TC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(519, 316);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 35);
+            this.label2.TabIndex = 108;
+            this.label2.Text = "回覆";
+            // 
+            // txtFeedback
+            // 
+            this.txtFeedback.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtFeedback.Font = new System.Drawing.Font("Noto Sans TC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.txtFeedback.Location = new System.Drawing.Point(637, 316);
+            this.txtFeedback.Multiline = true;
+            this.txtFeedback.Name = "txtFeedback";
+            this.txtFeedback.Size = new System.Drawing.Size(396, 160);
+            this.txtFeedback.TabIndex = 107;
+            // 
             // FrmAddComment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1143, 857);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtFeedback);
             this.Controls.Add(this.cmbMeals);
             this.Controls.Add(this.lblMeal);
             this.Controls.Add(this.cmbNames);
@@ -308,5 +333,7 @@
         private System.Windows.Forms.ComboBox cmbNames;
         private System.Windows.Forms.ComboBox cmbMeals;
         private System.Windows.Forms.Label lblMeal;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtFeedback;
     }
 }

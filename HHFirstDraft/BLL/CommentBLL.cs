@@ -22,6 +22,7 @@ namespace HHFirstDraft.BLL
             comment.CategoryID = entity.CategoryID;
             comment.IsApproved = entity.IsApproved;
             comment.Rating = entity.Rating;
+            comment.Feedback = entity.Feedback;
             if (entity.MealOptionID != null)
             {
                 comment.MealOptionID = (int)entity.MealOptionID;
@@ -53,6 +54,7 @@ namespace HHFirstDraft.BLL
             comment.IsApproved = entity.IsApproved;
             comment.CategoryID = entity.CategoryID;
             comment.MealOptionID = entity.MealOptionID;
+            comment.Feedback = entity.Feedback;
             commentDAO.Update(comment);
         }
 

@@ -40,6 +40,7 @@ namespace HHFirstDraft.DAL.DAO
                 dto.CategoryID = (int)item.CategoryID;
                 dto.CategoryName = item.CommentCategory.Name;
                 dto.Rating = item.Rating;
+                dto.Feedback = item.Feedback;
                 if (item.MealOptionID != null)
                 {
                     dto.MealOptionID = (int)item.MealOptionID;
@@ -67,6 +68,7 @@ namespace HHFirstDraft.DAL.DAO
                 dto.CategoryID = (int)item.CategoryID;
                 dto.CategoryName = item.CommentCategory.Name;
                 dto.Rating = item.Rating;
+                dto.Feedback = item.Feedback;
                 if (dto.MealOptionID != null)
                 {
                     dto.MealOptionID = (int)item.MealOptionID;
@@ -92,7 +94,11 @@ namespace HHFirstDraft.DAL.DAO
             comment.Rating = entity.Rating;
             comment.CategoryID = entity.CategoryID;
             comment.IsApproved = entity.IsApproved;
-            comment.MealOptionID = entity.MealOptionID;
+            if (comment.CategoryID == General.CommentCategory.meal)
+            {
+                comment.MealOptionID = entity.MealOptionID;
+            }
+            comment.Feedback = entity.Feedback;
 
             db.SaveChanges();
         }

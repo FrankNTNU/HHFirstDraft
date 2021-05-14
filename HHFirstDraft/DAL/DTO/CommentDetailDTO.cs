@@ -20,5 +20,6 @@ namespace HHFirstDraft.DAL.DTO
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public int Rating { get; set; }
+        public string Feedback { get; set; }
     }
 }

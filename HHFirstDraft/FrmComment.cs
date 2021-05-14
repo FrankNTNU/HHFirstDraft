@@ -53,6 +53,7 @@ namespace HHFirstDraft
             dataGridView1.Columns["Rating"].HeaderText = "評分";
             dataGridView1.Columns["MealOptionID"].Visible = false;
             dataGridView1.Columns["MealName"].HeaderText = "餐點";
+            dataGridView1.Columns["Feedback"].HeaderText = "回覆";
             isSearch = false;
         }
         bool isAscending = false;
@@ -103,6 +104,14 @@ namespace HHFirstDraft
             detail.IsApproved = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["IsApproved"].Value);
             detail.Rating = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Rating"].Value);
             detail.MealOptionID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["MealOptionID"].Value);
+            if (dataGridView1.Rows[e.RowIndex].Cells["FeedBack"].Value != null)
+            {
+                detail.Feedback = dataGridView1.Rows[e.RowIndex].Cells["FeedBack"].Value.ToString();
+            }
+            else
+            {
+                detail.Feedback = "";
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
