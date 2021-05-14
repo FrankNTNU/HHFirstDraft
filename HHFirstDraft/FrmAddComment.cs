@@ -55,6 +55,7 @@ namespace HHFirstDraft
                 txtComment.Text = detail.CommentContent;
                 numerticRating.Value = detail.Rating;
                 cbIsApproved.Checked = detail.IsApproved;
+                txtFeedback.Text = detail.Feedback;
                 lbTitle.Text = "修改評論";
                 btnAdd.Text = "修改";
                 btnAdd.BackColor = Color.SkyBlue;
@@ -94,6 +95,10 @@ namespace HHFirstDraft
             detail.CategoryID = Convert.ToInt32(cmbCategories.SelectedValue);
             detail.CommentContent = txtComment.Text;
             detail.IsApproved = cbIsApproved.Checked;
+            if (!string.IsNullOrEmpty(txtFeedback.Text))
+            {
+                detail.Feedback = txtFeedback.Text;
+            }
             if (detail.CategoryID == General.CommentCategory.meal)
             {
                 detail.MealOptionID = Convert.ToInt32(cmbMeals.SelectedValue);
